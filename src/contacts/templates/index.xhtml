@@ -1,0 +1,39 @@
+<html py:extends="master.xhtml" py:strip="True">
+    <head py:block="head" py:strip="True">
+        <title py:block="master_title">
+          Welcome to the Simple Contacts app, made as a
+          challenge for Axant. Standing on the Turbogear's shoulder.
+        </title>
+    </head>
+
+    <body py:block="body" py:strip="True">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="jumbotron">
+            <h1>Welcome to the Simple Contact App</h1>
+            <p>This simple app was made as a challenge for Axant!</p>
+            <p>
+              Sergio Brero made this to check his python knowledge as requested
+              from Alessandro Molina, Axant CTO. 
+            </p>
+            <p>
+              <a class="btn btn-primary btn-lg" href="/login" 
+                  target="_blank">
+                ${h.icon('user')} Login
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <h3>Manage your phone numbers</h3>
+          <p> Insert your <code>contacts</code>, manage them, export them.
+          </p>
+        </div>
+      </div>
+
+      <em class="pull-right small"> Thank you for your interest in my application.</em>
+    </body>
+</html>

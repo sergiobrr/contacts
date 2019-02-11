@@ -1,0 +1,4 @@
+recursive-include contacts/public *
+include contacts/public/favicon.ico
+recursive-include contacts/i18n *
+recursive-include contacts/templates *
