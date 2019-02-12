@@ -9,7 +9,7 @@ from tg.configuration import AppConfig
 
 import contacts
 from contacts import model, lib
-from tgext.pluggable import plug
+#from tgext.pluggable import plug
 
 base_config = AppConfig()
 base_config.renderers = []
