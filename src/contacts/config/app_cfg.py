@@ -5,64 +5,68 @@ Global configuration file for TG2-specific settings in contacts.
 This file complements development/deployment.ini.
 
 """
-from tg.configuration import AppConfig
+from tg import FullStackApplicationConfigurator
 
 import contacts
 from contacts import model, lib
 #from tgext.pluggable import plug
 
-base_config = AppConfig()
-base_config.renderers = []
+base_config = FullStackApplicationConfigurator()
 
-# True to prevent dispatcher from striping extensions
-# For example /socket.io would be served by "socket_io"
-# method instead of "socket".
-base_config.disable_request_extensions = False
+base_config.update_blueprint({
+    # True to prevent dispatcher from striping extensions
+    # For example /socket.io would be served by "socket_io"
+    # method instead of "socket".
+    'disable_request_extensions': False,
 
-# Set None to disable escaping punctuation characters to "_"
-# when dispatching methods.
-# Set to a function to provide custom escaping.
-base_config.dispatch_path_translator = True
+    # Set None to disable escaping punctuation characters to "_"
+    # when dispatching methods.
+    # Set to a function to provide custom escaping.
+    'dispatch_path_translator': True,
 
-base_config.prefer_toscawidgets2 = True
+    'package': contacts,
+})
 
-base_config.package = contacts
+# ToscaWidgets configuration
+base_config.update_blueprint({
+    'tw2.enabled': True,
+})
 
-# Enable json in expose
-base_config.renderers.append('json')
-
-# Set the default renderer
-base_config.renderers.append('kajiki')
-base_config['templating.kajiki.strip_text'] = False  # Change this in setup.py too for i18n to work.
-
-base_config.default_renderer = 'kajiki'
-
+# Rendering Engines Configuration
+rendering_config = {
+    'renderers': ['json'],  # Enable json in expose
+    'default_renderer': 'kajiki',
+}
+rendering_config['renderers'].append('kajiki')
+# Change this in setup.py too for i18n to work.
+rendering_config['templating.kajiki.strip_text'] = False
+base_config.update_blueprint(rendering_config)
 
 # Configure Sessions, store data as JSON to avoid pickle security issues
-base_config['session.enabled'] = True
-base_config['session.data_serializer'] = 'json'
+base_config.update_blueprint({
+    'session.enabled': True,
+    'session.data_serializer': 'json',
+})
+
 # Configure the base SQLALchemy Setup
-base_config.use_sqlalchemy = True
-base_config.model = contacts.model
-base_config.DBSession = contacts.model.DBSession
-# Configure the authentication backend
-base_config.auth_backend = 'sqlalchemy'
-# YOU MUST CHANGE THIS VALUE IN PRODUCTION TO SECURE YOUR APP
-base_config.sa_auth.cookie_secret = "27cf8a90-9350-41cb-8c02-37571a23491c"
-# what is the class you want to use to search for users in the database
-base_config.sa_auth.user_class = model.User
+base_config.update_blueprint({
+    'use_sqlalchemy': True,
+    'model': contacts.model,
+    'DBSession': contacts.model.DBSession,
+})
 
 from tg.configuration.auth import TGAuthMetadata
 
 
 # This tells to TurboGears how to retrieve the data for your user
 class ApplicationAuthMetadata(TGAuthMetadata):
-    def __init__(self, sa_auth):
-        self.sa_auth = sa_auth
+    def __init__(self, dbsession, user_class):
+        self.dbsession = dbsession
+        self.user_class = user_class
 
     def authenticate(self, environ, identity):
         login = identity['login']
-        user = self.sa_auth.dbsession.query(self.sa_auth.user_class).filter_by(
+        user = self.dbsession.query(self.user_class).filter_by(
             user_name=login
         ).first()
 
@@ -95,7 +99,7 @@ class ApplicationAuthMetadata(TGAuthMetadata):
         return login
 
     def get_user(self, identity, userid):
-        return self.sa_auth.dbsession.query(self.sa_auth.user_class).filter_by(
+        return self.dbsession.query(self.user_class).filter_by(
             user_name=userid
         ).first()
 
@@ -105,41 +109,43 @@ class ApplicationAuthMetadata(TGAuthMetadata):
     def get_permissions(self, identity, userid):
         return [p.permission_name for p in identity['user'].permissions]
 
-base_config.sa_auth.dbsession = model.DBSession
+# Configure the authentication backend
+base_config.update_blueprint({
+    'auth_backend': 'sqlalchemy',
 
-base_config.sa_auth.authmetadata = ApplicationAuthMetadata(base_config.sa_auth)
+    # YOU MUST CHANGE THIS VALUE IN PRODUCTION TO SECURE YOUR APP
+    'sa_auth.cookie_secret': "c7af0ff2-16c8-43c3-aece-0fa8ed316f1f",
+    'sa_auth.authmetadata': ApplicationAuthMetadata(model.DBSession, model.User),
 
-# In case ApplicationAuthMetadata didn't find the user discard the whole identity.
-# This might happen if logged-in users are deleted.
-base_config['identity.allow_missing_user'] = False
+    # You may optionally define a page where you want users
+    # to be redirected to on login:
+    'sa_auth.post_login_url': '/post_login',
 
-# You can use a different repoze.who Authenticator if you want to
-# change the way users can login
-# base_config.sa_auth.authenticators = [('myauth', SomeAuthenticator()]
+    # You may optionally define a page where you want users
+    # to be redirected to on logout:
+    'sa_auth.post_logout_url': '/post_logout',
+    
+    # In case ApplicationAuthMetadata didn't find the user discard the whole identity.
+    # This might happen if logged-in users are deleted.
+    'identity.allow_missing_user': False,
 
-# You can add more repoze.who metadata providers to fetch
-# user metadata.
-# Remember to set base_config.sa_auth.authmetadata to None
-# to disable authmetadata and use only your own metadata providers
-# base_config.sa_auth.mdproviders = [('myprovider', SomeMDProvider()]
-
-# override this if you would like to provide a different who plugin for
-# managing login and logout of your application
-base_config.sa_auth.form_plugin = None
-
-# You may optionally define a page where you want users to be redirected to
-# on login:
-base_config.sa_auth.post_login_url = '/post_login'
-
-# You may optionally define a page where you want users to be redirected to
-# on logout:
-base_config.sa_auth.post_logout_url = '/post_logout'
+    # override this if you would like to provide a different who plugin for
+    # managing login and logout of your application
+    'sa_auth.form_plugin': None,
+    
+    # You can use a different repoze.who Authenticator if you want to
+    # change the way users can login
+    # 'sa_auth.authenticators': [('myauth', SomeAuthenticator()],
+    
+    # You can add more repoze.who metadata providers to fetch
+    # user metadata.
+    # Remember to set 'sa_auth.authmetadata' to None
+    # to disable authmetadata and use only your own metadata providers
+    # 'sa_auth.mdproviders': [('myprovider', SomeMDProvider()],
+})
 try:
     # Enable DebugBar if available, install tgext.debugbar to turn it on
     from tgext.debugbar import enable_debugbar
     enable_debugbar(base_config)
 except ImportError:
     pass
-
-#plug(base_config, 'registration')
-#plug(base_config, 'tgext.mailer')

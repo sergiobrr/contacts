@@ -34,7 +34,8 @@ testpkgs = [
 ]
 
 install_requires = [
-    "TurboGears2 >= 2.3.12",
+    #"TurboGears2 >= 2.3.12",
+    "TurboGears2 >= 2.4.0a1",
     "Beaker >= 1.8.0",
     "Kajiki >= 0.6.3",
     "zope.sqlalchemy >= 0.4",
@@ -74,7 +75,7 @@ setup(
     ]},
     entry_points={
         'paste.app_factory': [
-            'main = contacts.config.middleware:make_app'
+            'main = contacts.config.application:make_app'
         ],
         'gearbox.plugins': [
             'turbogears-devtools = tg.devtools'
