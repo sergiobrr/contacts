@@ -12,27 +12,37 @@ from contacts.model.reset_password.reset_request import ResetRequest
 
 
 class ResetRequestController(BaseController):
-    # Uncomment this line if your controller requires an authenticated user
     allow_only = is_anonymous()
 
+    @expose('contacts.templates.reset_password.reset_response')
+    def reset_response(self, title=None, message=None):
+        return dict(page='bad_token', title=title, message=message)
+
     @expose('contacts.templates.reset_password.new_password')
-    def new_password(self, token):
-        request = ResetRequest.get_by_token(token)
-        if request is None or request.check_token_age == False:
-            if request is not None:
-                DBSession.delete(request)
-                DBSession.commit()
-            redirect('/reset_password/bad_token')
+    def new_password(self, token, message=None):
+        '''
+        Starts the new password procedure if token is valid
+        '''
+        reset_request = ResetRequest.get_by_token(token)
+
+        # token is wrong or it's expired
+        if reset_request is None or reset_request.check_token_age() == False:
+            if reset_request is not None:
+                DBSession.delete(reset_request)
+            title = _("Bad token")
+            message = _("The token %s doesn't exist or it's expired") % token
+            redirect(
+                '/reset_password/reset_response', 
+                params={'title': title, 'message': message})
+
+        if message is not None and message == 'passwords-not-match':
+            flash(_("Passwords provided don't match."), 'error')
 
         return dict(
             page='new_password', 
             token=token,
-            user=request.user.email_address
+            email_address=reset_request.user.email_address
         )
-
-    @expose('contacts.templates.reset_password.bad_token')
-    def bad_token(self):
-        return dict(page='bad_token')
     
     @expose('contacts.templates.reset_password.reset_password')
     def reset_request(
@@ -71,19 +81,19 @@ class ResetRequestController(BaseController):
             redirect(
                 '/reset_password/reset_request/?failure=user-not-found&email_address=' + email_address
             )
-        request = ResetRequest.get_by_user(user.user_id)
+        reset_request = ResetRequest.get_by_user(user.user_id)
         already_present = False
         result = False
         message = ''
-        if request:
+        if reset_request:
             already_present = True
-            result, message = request.send_reset_link()
+            result, message = reset_request.send_reset_link()
         else:
-            request = ResetRequest(user_id=user.user_id)
-            DBSession.add(request)
+            reset_request = ResetRequest(user_id=user.user_id)
+            DBSession.add(reset_request)
             DBSession.flush()
-            request = ResetRequest.get_by_user(user.user_id)
-            result, message = request.send_reset_link()
+            reset_request = ResetRequest.get_by_user(user.user_id)
+            result, message = reset_request.send_reset_link()
 
         if result:
             if already_present:
@@ -95,3 +105,20 @@ class ResetRequestController(BaseController):
         else:
             redirect(
                     '/reset_password/reset_request/?failure=email-error&error_message=' + message)
+
+    @expose()
+    def save_password(self, password, check_password, email_address):
+        user = User.by_email_address(email_address)
+        if password == check_password:
+            user._set_password(password)
+            user.reset_requests[0].activated = True
+            title = _("Password updated succesfully")
+            message = _("The password for %s updated, proceed to login.") % email_address
+            redirect(
+                '/reset_password/reset_response', 
+                params={'title': title, 'message': message})
+        else:
+            token = user.reset_requests[0].token
+            redirect(
+                '/reset_password/new_password',
+                params={'token': token, 'message': 'passwords-not-match'})

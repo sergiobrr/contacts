@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: contacts 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-27 03:00+0100\n"
+"POT-Creation-Date: 2019-02-27 21:23+0100\n"
 "PO-Revision-Date: 2019-02-27 01:09+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -47,38 +47,65 @@ msgstr ""
 msgid "Secure Controller here"
 msgstr ""
 
-#: contacts/controllers/reset_password/reset_request.py:30
-msgid "We don't have a user with %(d) as email address."
+#: contacts/controllers/reset_password/reset_request.py:32
+msgid "Bad token"
+msgstr ""
+
+#: contacts/controllers/reset_password/reset_request.py:33
+msgid "The token $s doesn't exist or it's expired"
+msgstr ""
+
+#: contacts/controllers/reset_password/reset_request.py:39
+msgid "Passwords provided don't match."
+msgstr ""
+
+#: contacts/controllers/reset_password/reset_request.py:59
+#, fuzzy, python-format
+#| msgid "We don't have a user with %(d) as email address."
+msgid "We don't have a user with %s as email address."
 msgstr "Non abbiamo un utente con %d come indirizzo email."
 
-#: contacts/controllers/reset_password/reset_request.py:32
+#: contacts/controllers/reset_password/reset_request.py:61
 #, python-format
 msgid ""
 "A reset request for %s was already present. We sent the email again, "
 "check your inbox"
 msgstr ""
 
-#: contacts/controllers/reset_password/reset_request.py:34
+#: contacts/controllers/reset_password/reset_request.py:63
 msgid "Error sending the reset request, try again later."
 msgstr ""
 
-#: contacts/controllers/reset_password/reset_request.py:36
+#: contacts/controllers/reset_password/reset_request.py:65
 #, python-format
 msgid "The error was %s"
 msgstr ""
 
-#: contacts/controllers/reset_password/reset_request.py:39
+#: contacts/controllers/reset_password/reset_request.py:68
 #, fuzzy, python-format
-#| msgid "A message with the link for the reset was sent to %(d)."
 msgid "A message with the link for the reset was sent to %s."
 msgstr "Abbiamo mandato una email con il link per il reset a %d."
 
-#: contacts/model/reset_password/reset_request.py:50
+#: contacts/controllers/reset_password/reset_request.py:115
+msgid "Password updated succesfully"
+msgstr ""
+
+#: contacts/controllers/reset_password/reset_request.py:116
+#, python-format
+msgid "The password for %s updated, proceed to login."
+msgstr ""
+
+#: contacts/model/reset_password/reset_request.py:56
 msgid "Please click on this link to reset your password"
 msgstr ""
 
-#: contacts/model/reset_password/reset_request.py:52
+#: contacts/model/reset_password/reset_request.py:58
 msgid "The link is valid for 48 hours only"
+msgstr ""
+
+#: contacts/model/reset_password/reset_request.py:62
+#, python-format
+msgid "Password reset request from %s"
 msgstr ""
 
 #: contacts/templates/about.xhtml:3
@@ -415,6 +442,7 @@ msgid "secc/some_where"
 msgstr ""
 
 #: contacts/templates/about.xhtml:135
+#: contacts/templates/reset_password/reset_response.xhtml:11
 msgid "."
 msgstr ""
 
@@ -523,6 +551,7 @@ msgid "Username:"
 msgstr ""
 
 #: contacts/templates/login.xhtml:20
+#: contacts/templates/reset_password/new_password.xhtml:13
 msgid "Password:"
 msgstr ""
 
@@ -533,7 +562,6 @@ msgstr ""
 #: contacts/templates/login.xhtml:33
 #: contacts/templates/reset_password/reset_password.xhtml:3
 #: contacts/templates/reset_password/reset_password.xhtml:7
-#: contacts/templates/reset_password/submit_reset.xhtml:3
 msgid "Reset password"
 msgstr ""
 
@@ -573,20 +601,28 @@ msgstr ""
 msgid "Simple contacts app"
 msgstr ""
 
+#: contacts/templates/reset_password/new_password.xhtml:3
+msgid "New password"
+msgstr ""
+
+#: contacts/templates/reset_password/new_password.xhtml:7
+msgid "New password for user "
+msgstr ""
+
+#: contacts/templates/reset_password/new_password.xhtml:20
+msgid "Check password:"
+msgstr ""
+
+#: contacts/templates/reset_password/new_password.xhtml:32
+msgid "Save password"
+msgstr ""
+
 #: contacts/templates/reset_password/reset_password.xhtml:13
 msgid "Email:"
 msgstr ""
 
 #: contacts/templates/reset_password/reset_password.xhtml:22
 msgid "Send request"
-msgstr ""
-
-#: contacts/templates/reset_password/submit_reset.xhtml:7
-msgid "Submit reset"
-msgstr ""
-
-#: contacts/templates/reset_password/submit_reset.xhtml:10
-msgid "Submitted..."
 msgstr ""
 
 #~ msgid ""
@@ -605,5 +641,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "The error was %(error)"
+#~ msgstr ""
+
+#~ msgid "Submit reset"
+#~ msgstr ""
+
+#~ msgid "Submitted..."
 #~ msgstr ""
 

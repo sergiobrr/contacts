@@ -152,3 +152,4 @@ except ImportError:
 
 plug(base_config, 'tgext.mailer')
 plug(base_config, 'registration')
+plug(base_config, 'resetpassword')

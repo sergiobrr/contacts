@@ -51,7 +51,6 @@ class ResetRequest(DeclarativeBase):
     def send_reset_link(self):
         email_address = self.user.email_address
         self.created = datetime.now()
-        DBSession.commit()
         email_body = config.get(
             'reset_password.body',
             _('Please click on this link to reset your password') + '\n'\
