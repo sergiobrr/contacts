@@ -32,7 +32,9 @@
       <ul class="nav navbar-nav">
         <li class="${('', 'active')[self.defined('page') and page=='index']}"><a href="${tg.url('/')}">Welcome</a></li>
         <li class="${('', 'active')[self.defined('model') and model=='Contact']}"><a href="${tg.url('/contacts')}">Contacts</a></li>
-        <li class="${('', 'active')[self.defined('page') and page=='about']}"><a href="${tg.url('/about')}">About</a></li>
+        <li class="${('', 'active')[self.defined('action') and action=='/registration/submit']}">
+          <a href="${tg.url('/registration')}">Register</a>
+        </li>
         <li class="${('', 'active')[self.defined('page') and page=='environ']}"><a href="${tg.url('/environ')}">WSGI Environment</a></li>
       </ul>
       <ul py:if="tg.auth_stack_enabled" class="nav navbar-nav navbar-right">
