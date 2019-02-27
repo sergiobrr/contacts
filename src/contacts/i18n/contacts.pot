@@ -1,19 +1,17 @@
-# Russian translations for ${package}.
-# Copyright (C) 2008 ORGANIZATION
-# This file is distributed under the same license as the ${package} project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# Translations template for contacts.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the contacts project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ${package} 0.0.0\n"
+"Project-Id-Version: contacts 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2019-02-27 03:00+0100\n"
-"PO-Revision-Date: 2008-01-13 14:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: ru\n"
-"Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,8 +53,8 @@ msgstr ""
 #: contacts/controllers/reset_password/reset_request.py:32
 #, python-format
 msgid ""
-"A reset request for %s was already present. We sent the email again, "
-"check your inbox"
+"A reset request for %s was already present. We sent the email again, check "
+"your inbox"
 msgstr ""
 
 #: contacts/controllers/reset_password/reset_request.py:34
@@ -90,9 +88,7 @@ msgid "Architectural basics of a quickstart TG2 site."
 msgstr ""
 
 #: contacts/templates/about.xhtml:14
-msgid ""
-"The TG2 quickstart command produces this basic TG site. Here's how it "
-"works."
+msgid "The TG2 quickstart command produces this basic TG site. Here's how it works."
 msgstr ""
 
 #: contacts/templates/about.xhtml:22
@@ -137,12 +133,11 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:37
 msgid ""
-"You can build a dynamic site without any data model at all. There still "
-"be a\n"
+"You can build a dynamic site without any data model at all. There still be a\n"
 "          default data-model template for you if you didn't enable "
 "authentication and\n"
-"          authorization in quickstart. If you have enabled authorization,"
-" the auth\n"
+"          authorization in quickstart. If you have enabled authorization, the"
+" auth\n"
 "          data-model is ready-made."
 msgstr ""
 
@@ -192,8 +187,7 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:51
 msgid ""
-"Those Python methods are responsible to create the dictionary of "
-"variables\n"
+"Those Python methods are responsible to create the dictionary of variables\n"
 "          that will be used in your web views (template)."
 msgstr ""
 
@@ -203,8 +197,7 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:58
 msgid ""
-"A web page viewed by user could be constructed by single or several "
-"reusable\n"
+"A web page viewed by user could be constructed by single or several reusable\n"
 "                templates under"
 msgstr ""
 
@@ -239,32 +232,32 @@ msgstr ""
 #: contacts/templates/about.xhtml:76
 msgid ""
 "template\n"
-"        controls the overall design of the page we're looking at. It "
-"draws the headers,\n"
-"        the footer, the notices flash and embeds the content of each page"
-" of your web applications.\n"
-"        Thus the \"master.html\" template provides the overall "
-"architecture for\n"
+"        controls the overall design of the page we're looking at. It draws "
+"the headers,\n"
+"        the footer, the notices flash and embeds the content of each page of "
+"your web applications.\n"
+"        Thus the \"master.html\" template provides the overall architecture "
+"for\n"
 "        each page in this site."
 msgstr ""
 
 #: contacts/templates/about.xhtml:82
 msgid ""
 "There's more to the \"master.html\" template... study it to see how the\n"
-"        &lt;title&gt; tags and static JS and CSS files are brought into "
-"the page.\n"
-"        Templating with Genshi is a powerful tool and we've only "
-"scratched the surface.\n"
-"        There are also a few little CSS tricks hidden in these pages, "
-"like the use of a\n"
+"        &lt;title&gt; tags and static JS and CSS files are brought into the "
+"page.\n"
+"        Templating with Genshi is a powerful tool and we've only scratched "
+"the surface.\n"
+"        There are also a few little CSS tricks hidden in these pages, like "
+"the use of a\n"
 "        \"clearingdiv\" to make sure that your footer stays below the "
 "sidebars and always\n"
-"        looks right. That's not TG2 at work, just CSS. You'll need all "
-"your skills to\n"
-"        build a fine web app, but TG2 will make the hard parts easier so "
-"that you can\n"
-"        concentrate more on good design and content rather than "
-"struggling with\n"
+"        looks right. That's not TG2 at work, just CSS. You'll need all your "
+"skills to\n"
+"        build a fine web app, but TG2 will make the hard parts easier so that"
+" you can\n"
+"        concentrate more on good design and content rather than struggling "
+"with\n"
 "        mechanics."
 msgstr ""
 
@@ -274,19 +267,18 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:98
 msgid ""
-"If you have access to this page, this means you have enabled "
-"authentication\n"
+"If you have access to this page, this means you have enabled authentication\n"
 "        and authorization in the quickstart to create your project."
 msgstr ""
 
 #: contacts/templates/about.xhtml:101
 msgid ""
-"The gearbox command will have created a few specific controllers for you."
-" But\n"
-"        before you go to play with those controllers you'll need to make "
-"sure your\n"
-"        application has been properly bootstapped. This is dead easy, "
-"here is how to do\n"
+"The gearbox command will have created a few specific controllers for you. But"
+"\n"
+"        before you go to play with those controllers you'll need to make sure"
+" your\n"
+"        application has been properly bootstapped. This is dead easy, here is"
+" how to do\n"
 "        this:"
 msgstr ""
 
@@ -296,19 +288,17 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:107
 msgid ""
-"inside your application's folder and you'll get a database setup (using "
-"the\n"
-"        preferences you have set in your development.ini file). This "
-"database will also\n"
-"        have been prepopulated with some default logins/passwords so that"
-" you can test\n"
+"inside your application's folder and you'll get a database setup (using the\n"
+"        preferences you have set in your development.ini file). This database"
+" will also\n"
+"        have been prepopulated with some default logins/passwords so that you"
+" can test\n"
 "        the secured controllers and methods."
 msgstr ""
 
 #: contacts/templates/about.xhtml:112
 msgid ""
-"To change the comportement of this setup-app command you just need to "
-"edit\n"
+"To change the comportement of this setup-app command you just need to edit\n"
 "        the"
 msgstr ""
 
@@ -336,8 +326,7 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:119
 msgid ""
-"Only managers are authorized to visit this method. You will need to log-"
-"in\n"
+"Only managers are authorized to visit this method. You will need to log-in\n"
 "        using:"
 msgstr ""
 
@@ -381,8 +370,7 @@ msgstr ""
 
 #: contacts/templates/about.xhtml:129
 msgid ""
-"The last kind of protected resource in this quickstarted app is a full so"
-"\n"
+"The last kind of protected resource in this quickstarted app is a full so\n"
 "        called"
 msgstr ""
 
@@ -393,10 +381,10 @@ msgstr ""
 #: contacts/templates/about.xhtml:130
 msgid ""
 ". This controller is\n"
-"        protected globally. Instead of having a @require decorator on "
-"each method, we\n"
-"        have set an allow_only attribute at the class level. All the "
-"methods in this\n"
+"        protected globally. Instead of having a @require decorator on each "
+"method, we\n"
+"        have set an allow_only attribute at the class level. All the methods "
+"in this\n"
 "        controller will require the same level of access. You need to be "
 "manager to\n"
 "        access"
@@ -429,12 +417,12 @@ msgstr ""
 #: contacts/templates/environ.xhtml:18
 msgid ""
 "In this page you can see all the WSGI variables your request object has,\n"
-"             the ones in capital letters are required by the spec, then a"
-" sorted by\n"
-"             component list of variables provided by the Components, and "
-"at last\n"
-"             the \"wsgi.\" namespace with very useful information about "
-"your WSGI Server"
+"             the ones in capital letters are required by the spec, then a "
+"sorted by\n"
+"             component list of variables provided by the Components, and at "
+"last\n"
+"             the \"wsgi.\" namespace with very useful information about your "
+"WSGI Server"
 msgstr ""
 
 #: contacts/templates/environ.xhtml:22
@@ -588,28 +576,4 @@ msgstr ""
 #: contacts/templates/reset_password/submit_reset.xhtml:10
 msgid "Submitted..."
 msgstr ""
-
-#~ msgid "Your application is now running"
-#~ msgstr "Ваши приложение успешно запущено"
-
-#~ msgid ""
-#~ "A reset request for user %(d) was"
-#~ " already present. We sent the email"
-#~ " again, check your inbox"
-#~ msgstr ""
-
-#~ msgid "Password reset request from %(site_name)"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A reset request was already present. "
-#~ "We sent the email again, check "
-#~ "your inbox"
-#~ msgstr ""
-
-#~ msgid "The error was %(error)"
-#~ msgstr ""
-
-#~ msgid "A message with the link for the reset was sent to %(d)."
-#~ msgstr ""
 

@@ -8,6 +8,8 @@ from tgext.crud.decorators import optional_paginate, apply_default_filters
 from sprox.formbase import AddRecordForm, EditableForm
 from sprox.fillerbase import EditFormFiller, AddFormFiller 
 
+__all__ = ['ContactController']
+
 def get_user_id():
 	user = request.identity.get('user', None)
 	if user:
@@ -74,8 +76,7 @@ class ContactController(EasyCrudRestController):
 	@expose('genshi:contacts.templates.get_all', inherit=True)
 	def get_all(self, *args, **kwargs):
 		'''
-		add a filter on user_id contact field in order to pass to
-		view only contacts owned by the current user
+		overrides the default template
 		'''
 		return super(ContactController, self).get_all(*args, **kwargs)
 

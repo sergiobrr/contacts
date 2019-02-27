@@ -6,7 +6,9 @@
 		=> OK
 - Mettere l'app sotto buildbot
 - Portare l'app a TG2.4 invece che TG2.3 (quindi usare FullStackApplicationConfigurator invece di AppConfig)
+		=> OK
 - Implementare registration, mailer e resetpassword
+		=> riuscito a far funzionare registration and mailer, quasi finito reset_password
 - Permettere il login con email+password invece che username+password
 - Implementare un controller per gestire la foto dei contatti con DEPOT. Quindi permettere di associare ad ogni contatto una foto. L'interazione deve essere che di fianco ad ogni contatto deve esserci il campo "photo" con la foto della persona, se assente invece deve esserci il classico riquadro bianco con + al centro che consenta l'upload i una nuova foto. Nel caso in cui la foto esista già deve essere possibile sostituirla. Il caricamento delle foto deve essere implementato in Javascript usando Vue.JS/React/Ractive.js o equivalenti.
 - Implementare import dei contatti da CSV. Deve essere disponibile una pagina (con il link dalla pagina di elenco contatti con bottone IMPORT) che rimanda ad una pagina con un form ToscaWidgets che permetta di selezionare un file CSV da importare. Se i contatti già esistono (sulla base di nome+cognome) devono essere aggiornati con i nuovi dati. Il form deve essere validato e non consentire il submit senza file.

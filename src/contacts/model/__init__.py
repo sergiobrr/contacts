@@ -60,5 +60,6 @@ def init_model(engine):
 # Import your model modules here.
 from contacts.model.auth import User, Group, Permission
 from contacts.model.contact import Contact
+from contacts.model.reset_password.reset_request import ResetRequest
 
-__all__ = ('User', 'Group', 'Permission', 'Contact')
+__all__ = ('User', 'Group', 'Permission', 'Contact', 'ResetRequest')

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Main Controller"""
 
-from tg import expose, flash, require, url, lurl
-from tg import request, redirect, tmpl_context
+from tg import expose, flash, require, url, lurl, request, redirect, tmpl_context
 from tg.i18n import ugettext as _, lazy_ugettext as l_
 from tg.exceptions import HTTPFound
 from tg import predicates
@@ -11,10 +10,12 @@ from contacts.controllers.secure import SecureController
 from contacts.model import DBSession
 from tgext.admin.tgadminconfig import BootstrapTGAdminConfig as TGAdminConfig
 from tgext.admin.controller import AdminController
+from tg.decorators import with_trailing_slash
 
 from contacts.lib.base import BaseController
 from contacts.controllers.error import ErrorController
 from contacts.controllers.contacts import ContactController
+from contacts.controllers.reset_password.reset_request import ResetRequestController
 
 __all__ = ['RootController']
 
@@ -37,7 +38,8 @@ class RootController(BaseController):
     admin = AdminController(model, DBSession, config_type=TGAdminConfig)
     # Added ContactController for the /contacts route
     contacts = ContactController(DBSession)
-    # /contacts
+    # Added ResetPasswordController
+    reset_password = ResetRequestController()
 
     error = ErrorController()
 
@@ -102,3 +104,4 @@ class RootController(BaseController):
         """
         flash(_('We hope to see you soon!'))
         return HTTPFound(location=came_from)
+        

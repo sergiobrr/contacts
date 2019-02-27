@@ -14,7 +14,7 @@ from .bootstrap import bootstrap
 
 
 def setup_app(command, conf, vars):
-    """Place any commands to setup test24 here"""
+    """Place any commands to setup contacts here"""
     conf = base_config.configure(conf.global_conf, conf.local_conf)
     base_config.setup(conf)
     

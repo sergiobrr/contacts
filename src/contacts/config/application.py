@@ -16,7 +16,7 @@ def make_app(global_conf, **app_conf):
     :return: The contacts application with all the relevant middleware
         loaded.
 
-    This is the PasteDeploy factory for the test24 application.
+    This is the PasteDeploy factory for the contacts application.
 
     ``app_conf`` contains all the application-specific settings (those defined
     under ``[app:main]``.

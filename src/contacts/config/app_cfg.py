@@ -9,7 +9,7 @@ from tg import FullStackApplicationConfigurator
 
 import contacts
 from contacts import model, lib
-#from tgext.pluggable import plug
+from tgext.pluggable import plug
 
 base_config = FullStackApplicationConfigurator()
 
@@ -149,3 +149,6 @@ try:
     enable_debugbar(base_config)
 except ImportError:
     pass
+
+plug(base_config, 'tgext.mailer')
+plug(base_config, 'registration')
