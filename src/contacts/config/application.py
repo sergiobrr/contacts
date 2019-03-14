@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """WSGI application initialization for contacts."""
 from contacts.config.app_cfg import base_config
+from depot.manager import DepotManager
 
 __all__ = ['make_app']
 
@@ -24,5 +25,7 @@ def make_app(global_conf, **app_conf):
     app = base_config.make_wsgi_app(global_conf, app_conf, wrap_app=None)
 
     # Wrap your final TurboGears 2 application with custom middleware here
+    DepotManager._middleware = None
+    app = DepotManager.make_middleware(app)
 
     return app

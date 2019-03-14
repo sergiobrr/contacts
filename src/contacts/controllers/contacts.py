@@ -2,7 +2,8 @@ from tgext.crud import EasyCrudRestController
 from contacts.model import DBSession, Contact, User
 from tg.predicates import not_anonymous
 from tg import request, abort
-from tg.decorators import with_trailing_slash, without_trailing_slash
+from tg.decorators import with_trailing_slash, without_trailing_slash,\
+	override_template
 from tg import expose
 from tgext.crud.decorators import optional_paginate, apply_default_filters
 from sprox.formbase import AddRecordForm, EditableForm
@@ -65,15 +66,21 @@ class ContactController(EasyCrudRestController):
 	substring_filters = ['contact_name', 'contact_phonenumber']
 	title = 'Contacts controller'
 
-	__table_options__ = {
-		'__omit_fields__': [
-			'id',
-			'user_id', 
-			'user'
-		]
-	}
+	# __table_options__ = {
+	# 	'__omit_fields__': [
+	# 		'id',
+	# 		'user_id', 
+	# 		'user'
+	# 	]
+	# }
 
-	@expose('genshi:contacts.templates.get_all', inherit=True)
+	@expose( 'json')
+	def put(self, *args, **kwargs):
+		if kwargs and 'image' in kwargs.keys() and kwargs['image'] == '':
+			kwargs['image'] = None 
+		return super(ContactController, self).put(*args, **kwargs)
+
+	@expose('contacts.templates.get_all', inherit=True)
 	def get_all(self, *args, **kwargs):
 		'''
 		overrides the default template

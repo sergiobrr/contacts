@@ -5,7 +5,7 @@ Global configuration file for TG2-specific settings in contacts.
 This file complements development/deployment.ini.
 
 """
-from tg import FullStackApplicationConfigurator
+from tg import FullStackApplicationConfigurator, milestones, config
 
 import contacts
 from contacts import model, lib
@@ -66,8 +66,11 @@ class ApplicationAuthMetadata(TGAuthMetadata):
 
     def authenticate(self, environ, identity):
         login = identity['login']
+        # user = self.dbsession.query(self.user_class).filter_by(
+        #     user_name=login
+        # ).first()
         user = self.dbsession.query(self.user_class).filter_by(
-            user_name=login
+            email_address=login
         ).first()
 
         if not user:
@@ -98,9 +101,9 @@ class ApplicationAuthMetadata(TGAuthMetadata):
 
         return login
 
-    def get_user(self, identity, userid):
+    def get_user(self, identity, email_address):
         return self.dbsession.query(self.user_class).filter_by(
-            user_name=userid
+            email_address=email_address
         ).first()
 
     def get_groups(self, identity, userid):
@@ -153,3 +156,20 @@ except ImportError:
 plug(base_config, 'tgext.mailer')
 plug(base_config, 'registration')
 plug(base_config, 'resetpassword')
+
+def enable_depot():
+    # DEPOT setup
+    from depot.manager import DepotManager
+    
+    DepotManager.configure(
+        'contact_images', 
+        config, 
+        'depot.contact_images.')
+
+    DepotManager.alias(
+        'contact_image', 
+        'contact_images'
+    )
+
+
+milestones.config_ready.register(enable_depot)

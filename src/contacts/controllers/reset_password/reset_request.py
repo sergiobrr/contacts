@@ -52,7 +52,7 @@ class ResetRequestController(BaseController):
         error_message=None
     ):
         '''
-        Start the reset password procedure
+        Starts the reset password procedure
         '''
         if failure is not None:
             if failure == 'user-not-found':

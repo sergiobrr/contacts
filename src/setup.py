@@ -34,7 +34,6 @@ testpkgs = [
 ]
 
 install_requires = [
-    #"TurboGears2 >= 2.3.12",
     "TurboGears2 >= 2.4.0a1",
     "Beaker >= 1.8.0",
     "Kajiki >= 0.6.3",
@@ -44,7 +43,11 @@ install_requires = [
     "repoze.who",
     "tw2.forms",
     "tgext.admin >= 0.6.1",
-    "WebHelpers2"
+    "tgext.mailer==0.3.0",
+    "WebHelpers2",
+    "tgapp-registration==0.9.3",
+    "tgapp-resetpassword",
+    "filedepot==0.6.0"
 ]
 
 if py_version != (3, 2):
