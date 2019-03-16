@@ -1,5 +1,5 @@
 'use strict';
-angular.module('addPhoto', ['ngFileUpload'])
+angular.module('addPhoto', ['ngFileUpload', 'toaster', 'ngAnimate'])
 .config(function($interpolateProvider){
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');

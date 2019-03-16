@@ -2,9 +2,14 @@
 	'use strict';
 	
 	angular.module('addPhoto')
-	.controller('PhotoListController', ['$scope', 'Upload', '$timeout', '$http', PhotoListController]);
+	.controller('PhotoListController', [
+		'$scope', 
+		'Upload', 
+		'$timeout', 
+		'toaster', 
+		PhotoListController]);
 	
-	function PhotoListController($scope, Upload, $timeout, $http) {
+	function PhotoListController($scope, Upload, $timeout, toaster) {
 		var vm = this;
 
 		vm.delete = function(contact_id) {
@@ -18,10 +23,10 @@
 				},
 				method: 'PUT'
 			}).then(function(res){
-				console.log('and the winner is...', res);
 				window.location.reload();
 			}, function(error){
 				console.log('and the loser is...', error);
+				toaster.pop('error', "Error on image", 'Error deleting image');
 			});
 		};
 
@@ -40,9 +45,10 @@
 						method: 'PUT'
 					}).then(function(res) {
 						console.log('res', res);
-						//window.location.reload();
+						window.location.reload();
 					}, function(error) {
 						console.log('error', error);
+						toaster.pop('error', "Error on image", 'Error uploading image');
 					});
 				}
 			};

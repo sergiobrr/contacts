@@ -9,6 +9,7 @@ from contacts import model
 from contacts.controllers.secure import SecureController
 from contacts.model import DBSession
 from tgext.admin.tgadminconfig import BootstrapTGAdminConfig as TGAdminConfig
+from tgext.admin.tgadminconfig import CrudRestControllerConfig
 from tgext.admin.controller import AdminController
 from tg.decorators import with_trailing_slash
 
@@ -16,8 +17,57 @@ from contacts.lib.base import BaseController
 from contacts.controllers.error import ErrorController
 from contacts.controllers.contacts import ContactController
 from contacts.controllers.reset_password.reset_request import ResetRequestController
+from tw2.core import CSSSource, JSSource, CSSLink, JSLink
+from tgext.crud.resources import crud_script, crud_style
+from copy import deepcopy
 
 __all__ = ['RootController']
+
+def get_layout():
+    crud_resources = [
+        crud_style,
+        crud_script,
+        CSSLink(
+            location='head', 
+            link='https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/3.0.0/toaster.min.css'
+        ),
+        JSLink(
+            location='headbottom',
+            link='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='https://cdn.jsdelivr.net/npm/angular-animate@1.7.7/angular-animate.min.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='/javascript/app/ng-file-upload-shim.min.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='/javascript/app/ng-file-upload.min.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/3.0.0/toaster.min.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='/javascript/app/app.js'
+        ),
+        JSLink(
+            location='headbottom',
+            link='/javascript/app/photolist-controller.js'
+        )
+    ]
+    layout = deepcopy(TGAdminConfig.layout)
+    layout.crud_resources = crud_resources
+    return layout
+
+
+class CustomCrudConfig(CrudRestControllerConfig):
+    defaultCrudRestController = ContactController
+    layout = get_layout()
 
 
 class RootController(BaseController):
@@ -37,7 +87,7 @@ class RootController(BaseController):
     secc = SecureController()
     admin = AdminController(model, DBSession, config_type=TGAdminConfig)
     # Added ContactController for the /contacts route
-    contacts = ContactController(DBSession)
+    contacts = AdminController.make_controller(CustomCrudConfig(ContactController.model), DBSession)
     # Added ResetPasswordController
     reset_password = ResetRequestController()
 
